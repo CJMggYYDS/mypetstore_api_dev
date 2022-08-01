@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.csucjm.mypetstore_api_dev.common.CONSTANT;
 import com.csucjm.mypetstore_api_dev.common.CommonResponse;
-import com.csucjm.mypetstore_api_dev.domain.User;
+import com.csucjm.mypetstore_api_dev.entity.User;
 import com.csucjm.mypetstore_api_dev.persistence.UserMapper;
 import com.csucjm.mypetstore_api_dev.service.UserService;
 import com.github.benmanes.caffeine.cache.Cache;

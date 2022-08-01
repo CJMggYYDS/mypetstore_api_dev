@@ -1,7 +1,7 @@
 package com.csucjm.mypetstore_api_dev.service;
 
 import com.csucjm.mypetstore_api_dev.common.CommonResponse;
-import com.csucjm.mypetstore_api_dev.domain.User;
+import com.csucjm.mypetstore_api_dev.entity.User;
 
 public interface UserService {
     CommonResponse<User> login(String username, String password);

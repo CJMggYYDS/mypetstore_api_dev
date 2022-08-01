@@ -1,4 +1,4 @@
-package com.csucjm.mypetstore_api_dev.domain;
+package com.csucjm.mypetstore_api_dev.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

@@ -1,8 +1,8 @@
-package com.csucjm.mypetstore_api_dev.controller;
+package com.csucjm.mypetstore_api_dev.controller.front;
 
 import com.csucjm.mypetstore_api_dev.common.CONSTANT;
 import com.csucjm.mypetstore_api_dev.common.CommonResponse;
-import com.csucjm.mypetstore_api_dev.domain.User;
+import com.csucjm.mypetstore_api_dev.entity.User;
 import com.csucjm.mypetstore_api_dev.dto.UpdateUserDTO;
 import com.csucjm.mypetstore_api_dev.service.UserService;
 import org.springframework.validation.annotation.Validated;
