@@ -29,4 +29,9 @@ public class CONSTANT {
         int CUSTOMER = 1;
         int ADMIN = 0;
     }
+
+    public interface CART_CHECK{
+        int CHECKED = 1;
+        int UNCHECKED = 2;
+    }
 }

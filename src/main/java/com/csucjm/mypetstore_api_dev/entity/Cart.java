@@ -9,24 +9,24 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-@TableName("mystore_user")
-public class User {
+@TableName("mystore_cart")
+public class Cart {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private String username;
-    private String password;
 
-    private String email;
-    private String phone;
-    private String question;
-    private String answer;
+    @TableField("user_id")
+    private Integer userId;
 
-    private Integer role;
+    @TableField("product_id")
+    private Integer productId;
+
+    private Integer quantity;
+
+    private Integer checked;
 
     @TableField("create_time")
     private LocalDateTime createTime;
 
     @TableField("update_time")
     private LocalDateTime updateTime;
-
 }
