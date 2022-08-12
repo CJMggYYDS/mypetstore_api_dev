@@ -14,6 +14,7 @@ import com.csucjm.mypetstore_api_dev.utils.BigDecimalUtil;
 import com.csucjm.mypetstore_api_dev.utils.ImageServerConfig;
 import com.csucjm.mypetstore_api_dev.vo.CartItemVO;
 import com.csucjm.mypetstore_api_dev.vo.CartVO;
+import com.google.common.base.Splitter;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -89,6 +90,7 @@ public class CartServiceImpl implements CartService {
         return CommonResponse.createForSuccess();
     }
 
+    @Override
     public CommonResponse<CartVO> updateCart(Integer userId, Integer productId, Integer quantity) {
         if(userId == null) {
             return CommonResponse.createForError("缺少userID,未获取到用户信息");
@@ -121,31 +123,89 @@ public class CartServiceImpl implements CartService {
         }
     }
 
+
+    //  约定删除购物车item时可以选择一项或者多项,前端传递一个productId字符串,例如: "id1,id2,id3"
     @Override
-    public CommonResponse<CartVO> deleteCart(Integer userId, Integer productId) {
+    public CommonResponse<CartVO> deleteCart(Integer userId, String productIds) {
+        if(userId == null) {
+            return CommonResponse.createForError("缺少userID,未获取到用户信息");
+        }
+        if(productIds == null) {
+            return CommonResponse.createForError("缺少productIds,删除失败");
+        }
+
+        List<String> productIdStrings = Splitter.on(",").splitToList(productIds);
+        QueryWrapper<Cart> queryWrapper = new QueryWrapper<>();
+
+        for(String productIdStr : productIdStrings) {
+            int productId = Integer.parseInt(productIdStr);
+            queryWrapper
+                    .eq("user_id", userId)
+                    .eq("product_id", productId);
+            cartMapper.delete(queryWrapper);
+            queryWrapper.clear();
+        }
+        CartVO cartVO = this.getCartVOAndCheckStock(userId);
+        return CommonResponse.createForSuccess(cartVO);
+    }
+
+    @Override
+    public CommonResponse<Integer> getCartCount(Integer userId) {
+        if(userId == null) {
+            return CommonResponse.createForError("缺少userID,未获取到用户信息");
+        }
+        QueryWrapper<Cart> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        List<Cart> cartList = cartMapper.selectList(queryWrapper);
+        int count = 0;
+        for (Cart item : cartList) {
+            count += item.getQuantity();
+        }
+        return CommonResponse.createForSuccess(count);
+    }
+
+    @Override
+    public CommonResponse<CartVO> updateAllCheckStatus(Integer userId, Integer checkStatus) {
+        if(userId == null) {
+            return CommonResponse.createForError("缺少userID,未获取到用户信息");
+        }
+        if(checkStatus == null) {
+            return  CommonResponse.createForError("未指定checkStatus, 更新失败");
+        }
+        Cart cartItem = new Cart();
+        UpdateWrapper<Cart> updateWrapper = new UpdateWrapper<>();
+
+        updateWrapper.eq("user_id", userId);
+        updateWrapper.set("checked", checkStatus);
+        updateWrapper.set("update_time", LocalDateTime.now());
+        cartMapper.update(cartItem, updateWrapper);
+
+        CartVO cartVO = this.getCartVOAndCheckStock(userId);
+        return CommonResponse.createForSuccess(cartVO);
+    }
+
+    @Override
+    public CommonResponse<CartVO> updateCheckStatus(Integer userId, Integer productId, Integer checkStatus) {
         if(userId == null) {
             return CommonResponse.createForError("缺少userID,未获取到用户信息");
         }
         if(productId == null) {
-            return CommonResponse.createForError("缺少productId,删除失败");
+            return CommonResponse.createForError("缺少productId,更新失败");
         }
-        QueryWrapper<Cart> queryWrapper = new QueryWrapper<>();
-        queryWrapper
-                .eq("user_id", userId)
-                .eq("product_id", productId);
-        Cart cartItem = cartMapper.selectOne(queryWrapper);
+        if(checkStatus == null) {
+            return  CommonResponse.createForError("未指定checkStatus, 更新失败");
+        }
+        Cart cartItem = new Cart();
+        UpdateWrapper<Cart> updateWrapper=new UpdateWrapper<>();
 
-        if(cartItem != null) {
-           UpdateWrapper<Cart> updateWrapper = new UpdateWrapper<>();
-           updateWrapper.eq("id", cartItem.getId());
-           cartMapper.delete(updateWrapper);
+        updateWrapper.eq("user_id", userId);
+        updateWrapper.eq("product_id", productId);
+        updateWrapper.set("checked", checkStatus);
+        updateWrapper.set("update_time", LocalDateTime.now());
+        cartMapper.update(cartItem, updateWrapper);
 
-           CartVO cartVO = this.getCartVOAndCheckStock(userId);
-           return CommonResponse.createForSuccess(cartVO);
-        }
-        else {
-            return CommonResponse.createForError(ResponseCode.ARGUMENT_ILLEGAL.getCode(), ResponseCode.ARGUMENT_ILLEGAL.getMsg());
-        }
+        CartVO cartVO = this.getCartVOAndCheckStock(userId);
+        return CommonResponse.createForSuccess(cartVO);
     }
 
     private CartVO getCartVOAndCheckStock(Integer userId) {

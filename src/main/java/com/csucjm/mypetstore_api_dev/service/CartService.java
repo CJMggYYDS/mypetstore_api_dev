@@ -11,5 +11,11 @@ public interface CartService {
 
     CommonResponse<CartVO> updateCart(Integer userId, Integer productId, Integer quantity);
 
-    CommonResponse<CartVO> deleteCart(Integer userId, Integer productId);
+    CommonResponse<CartVO> deleteCart(Integer userId, String productIds);
+
+    CommonResponse<Integer> getCartCount(Integer userId);
+
+    CommonResponse<CartVO> updateAllCheckStatus(Integer userId, Integer checkStatus);
+
+    CommonResponse<CartVO> updateCheckStatus(Integer userId, Integer productId, Integer checkStatus);
 }
