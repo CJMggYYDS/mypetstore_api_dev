@@ -25,6 +25,31 @@ public class CONSTANT {
         private final String description;
     }
 
+    @AllArgsConstructor
+    @Getter
+    public enum PayType {
+        ALIPAY(1, "支付宝"),
+        WECHAT(2, "微信支付"),
+        OTHER(3, "其他方式");
+
+        private final int code;
+        private final String description;
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public enum OrderStatus {
+        CANCEL(1, "已取消"),
+        UNPAID(2, "未付款"),
+        PAID(3, "已付款"),
+        SHIPPED(4, "已发货"),
+        SUCCESS(5, "交易成功"),
+        CLOSED(6, "订单关闭");
+
+        private final int code;
+        private final String description;
+    }
+
     public interface ROLE {
         int CUSTOMER = 1;
         int ADMIN = 0;

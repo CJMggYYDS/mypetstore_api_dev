@@ -1,4 +1,4 @@
-package com.csucjm.mypetstore_api_dev.utils;
+package com.csucjm.mypetstore_api_dev.config;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClient;

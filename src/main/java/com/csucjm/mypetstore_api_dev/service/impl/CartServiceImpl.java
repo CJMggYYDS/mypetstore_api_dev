@@ -11,7 +11,7 @@ import com.csucjm.mypetstore_api_dev.persistence.CartMapper;
 import com.csucjm.mypetstore_api_dev.persistence.ProductMapper;
 import com.csucjm.mypetstore_api_dev.service.CartService;
 import com.csucjm.mypetstore_api_dev.utils.BigDecimalUtil;
-import com.csucjm.mypetstore_api_dev.utils.ImageServerConfig;
+import com.csucjm.mypetstore_api_dev.config.ImageServerConfig;
 import com.csucjm.mypetstore_api_dev.vo.CartItemVO;
 import com.csucjm.mypetstore_api_dev.vo.CartVO;
 import com.google.common.base.Splitter;

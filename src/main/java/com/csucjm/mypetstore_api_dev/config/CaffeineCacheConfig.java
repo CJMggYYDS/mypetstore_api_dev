@@ -1,4 +1,4 @@
-package com.csucjm.mypetstore_api_dev.utils;
+package com.csucjm.mypetstore_api_dev.config;
 
 
 import com.github.benmanes.caffeine.cache.Cache;

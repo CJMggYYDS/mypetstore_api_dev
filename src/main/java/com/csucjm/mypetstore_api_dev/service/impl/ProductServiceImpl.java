@@ -11,7 +11,7 @@ import com.csucjm.mypetstore_api_dev.persistence.CategoryMapper;
 import com.csucjm.mypetstore_api_dev.persistence.ProductMapper;
 import com.csucjm.mypetstore_api_dev.service.CategoryService;
 import com.csucjm.mypetstore_api_dev.service.ProductService;
-import com.csucjm.mypetstore_api_dev.utils.ImageServerConfig;
+import com.csucjm.mypetstore_api_dev.config.ImageServerConfig;
 import com.csucjm.mypetstore_api_dev.vo.ProductDetailVO;
 import com.csucjm.mypetstore_api_dev.vo.ProductListVO;
 import lombok.extern.slf4j.Slf4j;

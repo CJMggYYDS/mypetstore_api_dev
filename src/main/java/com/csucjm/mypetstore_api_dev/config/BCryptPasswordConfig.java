@@ -1,4 +1,4 @@
-package com.csucjm.mypetstore_api_dev.utils;
+package com.csucjm.mypetstore_api_dev.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
